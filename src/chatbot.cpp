@@ -7,6 +7,7 @@
 #include "graphnode.h"
 #include "graphedge.h"
 #include "chatbot.h"
+#include "memory.h"
 
 // constructor WITHOUT memory allocation
 ChatBot::ChatBot()
@@ -44,7 +45,75 @@ ChatBot::~ChatBot()
 
 //// STUDENT CODE
 ////
+// Copy Constructor
+ChatBot::ChatBot(const ChatBot& other)
+{
+    std::cout << "ChatBot Copy Constructor" << std::endl;
+    // Copy data handles
+    _currentNode = other._currentNode;
+    _chatLogic = other._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
+    _rootNode = other._rootNode;
+    _image = new wxBitmap(other._image->ConvertToImage());
+}
+// Move Constructor
+ChatBot::ChatBot(ChatBot&& other)
+{
+    std::cout << "ChatBot Move Constructor" << std::endl;
+    // Copy data handles
+    _currentNode = other._currentNode;
+    _chatLogic = other._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
+    _rootNode = other._rootNode;
+    _image = other._image;
+    // Invalidate old data handles
+    other._currentNode = nullptr;
+    other._chatLogic = nullptr;
+    other._rootNode = nullptr;
+    other._image = NULL;
+}
+// Copy Assignment
+ChatBot& ChatBot::operator=(const ChatBot& other)
+{
+    std::cout << "ChatBot Copy Assignment" << std::endl;
+    // Prevent self-assignment
+    if(this == &other)
+    {
+        return *this;
+    }
+    delete _image;
+    // Copy data handles
+    _currentNode = other._currentNode;
+    _chatLogic = other._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
+    _rootNode = other._rootNode;
+    _image = new wxBitmap(other._image->ConvertToImage());
+    return *this;
+}
 
+// Move Assignment
+ChatBot& ChatBot::operator=(ChatBot&& other)
+{
+    std::cout << "ChatBot Move Assignment" << std::endl;
+    // Prevent self-assignment
+    if(this==&other)
+    {
+        return *this;
+    }
+    delete _image;
+    // Copy data handles
+    _currentNode = other._currentNode;
+    _chatLogic = other._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
+    _rootNode = other._rootNode;
+    _image = other._image;
+    // Invalidate data handles
+    other._currentNode = nullptr;
+    other._chatLogic = nullptr;
+    other._rootNode = nullptr;
+    other._image = NULL;
+    return *this;
+}
 ////
 //// EOF STUDENT CODE
 

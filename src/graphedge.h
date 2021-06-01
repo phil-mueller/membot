@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include "memory.h"
 
 class GraphNode; // forward declaration
 
