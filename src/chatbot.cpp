@@ -43,8 +43,6 @@ ChatBot::~ChatBot()
     }
 }
 
-//// STUDENT CODE
-////
 // Copy Constructor
 ChatBot::ChatBot(const ChatBot& other)
 {
@@ -114,8 +112,6 @@ ChatBot& ChatBot::operator=(ChatBot&& other)
     other._image = NULL;
     return *this;
 }
-////
-//// EOF STUDENT CODE
 
 void ChatBot::ReceiveMessageFromUser(std::string message)
 {
